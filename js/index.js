@@ -134,6 +134,33 @@ const divToInput= (thisDiv, colNo) => {
     newInput.focus();
 }
 
+
+//converts text inputs back to divs, and submits updated values as replacement word
+const inputToDiv = (thisInput) => {
+    const thisDiv = thisInput.parentElement.querySelector("div"); //get corresponding div
+    
+    //test if input has altered value: if not, skip put request
+    if (thisDiv.innerText !== thisInput.value) {
+        //sync hidden dv with input
+        thisDiv.innerText = thisInput.value;
+
+        //get values from tr (two parents up from input)
+        const thisRow = thisInput.parentElement.parentElement; 
+        let thisId = thisRow.id;
+        let thisIcl = thisRow.querySelectorAll("td > div")[0].innerText;
+        let thisEng = thisRow.querySelectorAll("td > div")[1].innerText;
+        let thisPos = thisRow.querySelectorAll("td > div")[2].innerText;
+        let thisScore = thisRow.querySelectorAll("td > div")[3].innerText;
+        let thisWord = {icelandic:thisIcl,english:thisEng,pos:thisPos,score:thisScore}; //create replacement word
+
+        // call replace using replacement word
+        replace(thisId, thisWord);
+
+    }
+    thisInput.parentElement.querySelector("div").classList.remove("hidden");
+    thisInput.remove();
+}
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
