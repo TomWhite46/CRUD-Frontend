@@ -235,6 +235,16 @@ nextButton.addEventListener('click', function(e) {
     testAns.focus();
 });
 
+
+// make flags spin
+const spinner = () => {
+    document.querySelectorAll("img").forEach(image => {
+        image.classList.remove("spin");
+        void image.offsetWidth;
+        image.classList.add("spin");
+    });
+};
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
