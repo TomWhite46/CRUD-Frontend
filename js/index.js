@@ -37,6 +37,9 @@ const renderWord = (word, section) => {
 
     for (let i = 0; i < cellsVals.length; i++) {
         let subDiv = document.createElement('div');
+		//subdiv needs onclick function added here for update function
+        subDiv.addEventListener('click', (e) => divToInput(e.target, i));
+		
         subDiv.innerText = cellsVals[i][1];
         cellsVals[i][0].appendChild(subDiv);
         newRow.appendChild(cellsVals[i][0]);
@@ -58,9 +61,6 @@ const renderWord = (word, section) => {
     section.appendChild(newRow);
 
 }
-
-
-
 
 //*************************************CREATE NEW **********************************************
 const createWord = (newWord) => {
@@ -103,6 +103,35 @@ const replace = (id, replacementWord) => {
     .then(res => {
         showAll();
     }).catch(err => console.log(err));
+}
+
+//converts divs in getall table to text inputs
+const divToInput= (thisDiv, colNo) => {
+    //create input
+    const newInput = document.createElement('input');
+    newInput.type = "text";
+    newInput.class = "specialInput";
+    newInput.style.width="70px";
+    newInput.value = thisDiv.innerText;
+    //event listener for input
+    newInput.addEventListener('focusout', (e) => inputToDiv(e.target));
+    newInput.addEventListener('keydown', function (e) {
+        //handle enter keypress
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            createForm.icl.focus();
+        }
+
+        
+        
+    });
+
+    //make div invisible
+    thisDiv.classList.add("hidden");
+
+    //insert input into parent td
+    thisDiv.parentElement.appendChild(newInput);
+    newInput.focus();
 }
 
 // ****************** run immediately ************************
