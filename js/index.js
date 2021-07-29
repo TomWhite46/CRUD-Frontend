@@ -96,6 +96,15 @@ const deleteById = (id) => {
     }).catch(err => console.log(err));
 }
 
+
+//*************************************REPLACE BY ID ******************************************/
+const replace = (id, replacementWord) => {
+    axios.put(`${baseURL}/update/${id}`, replacementWord)
+    .then(res => {
+        showAll();
+    }).catch(err => console.log(err));
+}
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
