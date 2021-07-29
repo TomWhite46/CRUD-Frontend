@@ -180,6 +180,61 @@ const getRandom = () => {
     }).catch(err => console.log(err))
 };
 
+
+//************************** evaluate test ******************************
+testForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    testResults(e.target);
+    testAns.value
+})
+    
+// test results
+const testResults = (thisForm) => {
+    const givenAnswer = testAns.value;
+    const actualAnswer = ansText.innerText;
+    const wordId = idText.innerText;
+    
+
+    if (givenAnswer === actualAnswer) {
+        ansAck.className="correct";
+        ansAck.innerText = "Correct!";
+        testAns.classList.add("right");
+        // do patch for id item: get id, update score + 1 in backend.
+        axios.patch(`${baseURL}/addScore/${wordId}`)
+        .then(res => {
+            console.log(res.data);
+            spinner();
+            showAll();
+            
+        }).catch(err => console.log(err));
+    } else {
+        ansAck.className="incorrect";
+        ansAck.innerText = `Wrong! The correct answer is "${actualAnswer}".`;
+        testAns.classList.add("wrong");
+        getRandom();
+        
+    }
+    // hide submit button, show next button
+    testAns.classList.add("disabled");
+    ansButton.classList.add("hidden");
+    nextButton.classList.remove("hidden");
+    nextButton.focus();
+    testAns.disabled= true;
+}
+
+nextButton.addEventListener('click', function(e) {
+    getRandom();
+    ///hide next button, show submit button, and load new test word
+    nextButton.classList.add("hidden");
+    ansButton.classList.remove("hidden");
+    testAns.classList.remove("right");
+    testAns.classList.remove("wrong");
+    ansAck.innerText ="";
+    testAns.value = "";
+    testAns.disabled= false;
+    testAns.focus();
+});
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
