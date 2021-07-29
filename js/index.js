@@ -58,6 +58,36 @@ const renderWord = (word, section) => {
     section.appendChild(newRow);
 
 }
+
+
+
+
+//*************************************CREATE NEW **********************************************
+const createWord = (newWord) => {
+    //post new word with create request
+    axios.post(`${baseURL}/create`, newWord)
+    .then(res => {
+        showAll(); //call show all to refresh with new word added
+    }).catch(err => console.log(err));
+
+}
+
+//apply above function to 'add word' button
+createForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const thisForm = e.target;
+
+    let newIcl = thisForm.icl.value;
+    let newEng = thisForm.eng.value;
+    let newPos = thisForm.pos.value;
+    let newWord = {icelandic:newIcl,english:newEng,pos:newPos};
+    createWord(newWord);
+    thisForm.icl.value ="";
+    thisForm.eng.value ="";
+    thisForm.pos.value ="";
+    thisForm.icl.focus();
+})
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
