@@ -37,6 +37,9 @@ const renderWord = (word, section) => {
 
     for (let i = 0; i < cellsVals.length; i++) {
         let subDiv = document.createElement('div');
+		//subdiv needs onclick function added here for update function
+        subDiv.addEventListener('click', (e) => divToInput(e.target, i));
+		
         subDiv.innerText = cellsVals[i][1];
         cellsVals[i][0].appendChild(subDiv);
         newRow.appendChild(cellsVals[i][0]);
@@ -58,9 +61,6 @@ const renderWord = (word, section) => {
     section.appendChild(newRow);
 
 }
-
-
-
 
 //*************************************CREATE NEW **********************************************
 const createWord = (newWord) => {
@@ -94,6 +94,71 @@ const deleteById = (id) => {
     .then(res => {
         showAll();
     }).catch(err => console.log(err));
+}
+
+
+//*************************************REPLACE BY ID ******************************************/
+const replace = (id, replacementWord) => {
+    axios.put(`${baseURL}/update/${id}`, replacementWord)
+    .then(res => {
+        showAll();
+    }).catch(err => console.log(err));
+}
+
+//converts divs in getall table to text inputs
+const divToInput= (thisDiv, colNo) => {
+    //create input
+    const newInput = document.createElement('input');
+    newInput.type = "text";
+    newInput.class = "specialInput";
+    newInput.style.width="70px";
+    newInput.value = thisDiv.innerText;
+    //event listener for input
+    newInput.addEventListener('focusout', (e) => inputToDiv(e.target));
+    newInput.addEventListener('keydown', function (e) {
+        //handle enter keypress
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            createForm.icl.focus();
+        }
+
+        
+        
+    });
+
+    //make div invisible
+    thisDiv.classList.add("hidden");
+
+    //insert input into parent td
+    thisDiv.parentElement.appendChild(newInput);
+    newInput.focus();
+}
+
+
+//converts text inputs back to divs, and submits updated values as replacement word
+const inputToDiv = (thisInput) => {
+    const thisDiv = thisInput.parentElement.querySelector("div"); //get corresponding div
+    
+    //test if input has altered value: if not, skip put request
+    if (thisDiv.innerText !== thisInput.value) {
+        //sync hidden dv with input
+        thisDiv.innerText = thisInput.value;
+
+        //get values from tr (two parents up from input)
+        const thisRow = thisInput.parentElement.parentElement; 
+        let thisId = thisRow.id;
+        let thisIcl = thisRow.querySelectorAll("td > div")[0].innerText;
+        let thisEng = thisRow.querySelectorAll("td > div")[1].innerText;
+        let thisPos = thisRow.querySelectorAll("td > div")[2].innerText;
+        let thisScore = thisRow.querySelectorAll("td > div")[3].innerText;
+        let thisWord = {icelandic:thisIcl,english:thisEng,pos:thisPos,score:thisScore}; //create replacement word
+
+        // call replace using replacement word
+        replace(thisId, thisWord);
+
+    }
+    thisInput.parentElement.querySelector("div").classList.remove("hidden");
+    thisInput.remove();
 }
 
 // ****************** run immediately ************************
