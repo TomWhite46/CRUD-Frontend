@@ -8,8 +8,8 @@
 3. Kanban Board
 4. Source control (Git)
 5. Database Structure
-6. Data Stack
-7. Front-end
+6. Backend
+7. Frontend
 8. Testing
 9. Stretch Goals
 <br><br>
@@ -33,8 +33,8 @@ The project takes in concepts from all the training to this point:
 * Back-end testing with J-Unit and Mockito
 <br><br>
 # 3. Kanban Board
-The Kanban board for the Icelandic vocab project, hosted on Jira, is available at https://team-1624352109955.atlassian.net/jira/software/projects/CRUD/boards/2.
-Screenshot of spring after backend completed:
+The Kanban board for the Icelandic vocab project, hosted on Jira, is available at https://team-1624352109955.atlassian.net/jira/software/projects/CRUD/boards/2.  
+Screenshot of Sprint after backend completed:
 ![Sprint Kanban board](https://i.imgur.com/gCsz36V.png)
 
 User stories were assigned to 2 overarching epics for frontend and backend:
@@ -56,34 +56,34 @@ Each Word in the database has 5 fields, corresponding to the Word class structur
 * _pos_ (varChar): the part of speech (noun, adjective, etc.). Can be null as not vital for front-end functionality.
 * _score_ (int): tracks the number of times the user has given the correct meaning of the word in the front-end tester.
 
-Image of back-end database:  
+
+Image of back-end database structure:  
 ![ER diagram](https://i.imgur.com/LSS7gmA.png)
 ![Database structure](https://i.imgur.com/kXifyJd.png)
-<br><br>
-# 6. Data Stack
-### Database
-Two database were used in the project:
+
+
+Two databases were used in the project:
 * An H2 console with data and schema saved in the backend, to facilitate integration testing.
 * A MySQL database for persistent storage for the production backend.
 <br><br>
-### Backend
+# 6. Backend
 The backend is powered by Java, using Spring Boot. The backend stores the DB queries on the repo and the HTTP requests in the controller, allowing for full integration of the three elements.  
 Backend folder structure:  
 ![Backend structure](https://i.imgur.com/XhUwolv.png)
 <br><br>
 # 7. Frontend
-The frontend is based on HTML, CSS and Javscript, using Bootstrap for formatting of columns, rows, forms and talbes. HTML and CSS determine the basic front-end display, while JS is used to for interactivity, to make HTTP requests, and to receive and render responses.
+The frontend is based on HTML, CSS and Javscript, using Bootstrap for formatting of columns, rows, forms and tables. HTML and CSS determine the basic front-end display, while JS is used to for interactivity, to make HTTP requests, and to receive and render responses.
 ![Front end](https://i.imgur.com/Y2GgMn7.png)
 <br><br>
 # 8. Testing
 Integration tests were written for every method in the controller, and unit tests, using Mockito, were written for every method in the ServiceDB class.
 
-Unit test:
+Unit test example and pass:
 
 ![Unit test eg](https://i.imgur.com/Ynp4xkG.png)
 ![Unit test pass](https://i.imgur.com/YOZo6lv.png)
 
-Integration test:
+Integration test example and pass:
 
 ![Integration test eg](https://i.imgur.com/QR52ahO.png)
 ![Integration test pass](https://i.imgur.com/okd4ZEy.png)
@@ -95,18 +95,18 @@ Integration test:
 ![Tester story](https://i.imgur.com/fs4Bdff.png)
 
 
-	2. on submission of a correct answer by the user, an patch request to increment the 	score of the word by one, and then submits a further get request for another random word.
+	2. On submission of a correct answer by the user, an patch request to increment the score of the word by 1, and then submits a further get request for another random word.
 
 	![Correct answer](https://i.imgur.com/aoMFRvq.png)
 
-	3. on submission of a correct answer, JS provides the answer, and then gets a new random word.
+	3. On submission of a correct answer, JS provides the answer, and then gets a new random word.
 
 	![Incorrect answer](https://i.imgur.com/pVtKquN.png)
 
 Further improvements could consist of:
 - Functionality to make the test appear as an overlay rather than a fixed form on the page.
 - Functionality to add warnings when deleting records.
-- Functionality to switch test to English -> icelandic.
+- Functionality to switch test to English -> Icelandic.
 
 <br><br>
 ### Project by Tom White
