@@ -1,0 +1,68 @@
+body {
+    font-family: Garamond !important;
+}
+
+.bottomBorder {
+    border-bottom: 3px dotted black;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.col.right {
+    border-right: 3px dotted black;
+}
+
+table#mainTable {
+    width:100%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+td {
+    font-size:large;
+}
+
+.hidden {
+    display: none;
+}
+
+#titleDiv {
+    text-align: center;
+}
+
+#titleDiv > h1 {
+    /* margin-bottom: 0px; */
+    display:inline-block;
+}
+
+img {
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+form div{
+    display:block;
+}
+
+input {
+    width:100%;
+}
+
+
+
+img.spin{
+    animation-name: spin;
+    animation-duration: 500ms;
+    animation-iteration-count: 1;
+    animation-timing-function:linear;
+}
+
+@keyframes spin {
+    0% {
+        transform:rotate(0deg);
+    }
+    100% {
+        transform:rotate(360deg);
+    }
+}
