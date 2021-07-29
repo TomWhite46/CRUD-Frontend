@@ -12,6 +12,7 @@
 7. Frontend
 8. Testing
 9. Stretch Goals
+10. Acknowledgements
 <br><br>
 # 1. Resources
 * Jira board: [here](https://team-1624352109955.atlassian.net/jira/software/projects/CRUD/boards/2)
@@ -107,7 +108,9 @@ Further improvements could consist of:
 - Functionality to make the test appear as an overlay rather than a fixed form on the page.
 - Functionality to add warnings when deleting records.
 - Functionality to switch test to English -> Icelandic.
-
+<br><br>
+# 10. Acknowledgements
+Credit to Jordans H and B for the tuition, and BAE Team 4 for emotional support.  
 <br><br>
 ### Project by Tom White
 
