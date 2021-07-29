@@ -161,6 +161,25 @@ const inputToDiv = (thisInput) => {
     thisInput.remove();
 }
 
+//********************** populate test **************************************
+const testIcl = document.querySelector("#testIcl");
+const testAns = document.querySelector("#testAns");
+const ansButton = document.querySelector("#ansButton");
+const nextButton = document.querySelector("#nextButton");
+const ansText = document.querySelector("#answer");
+const testForm = document.querySelector("#testForm");
+const idText = document.querySelector("#idField");
+const ansAck = document.querySelector("#ansAck");
+
+const getRandom = () => {
+    axios.get(`${baseURL}/getRandom`)
+    .then(res => {
+        testIcl.innerText = res.data.icelandic;
+        answer.innerText = res.data.english;
+        idText.innerText = res.data.id;
+    }).catch(err => console.log(err))
+};
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
