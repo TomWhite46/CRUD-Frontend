@@ -111,7 +111,8 @@ const divToInput= (thisDiv, colNo) => {
     const newInput = document.createElement('input');
     newInput.type = "text";
     newInput.class = "specialInput";
-    newInput.style.width="70px";
+	
+    newInput.style.width=(thisDiv.parentElement.offsetWidth * 0.75) + "px";
     newInput.value = thisDiv.innerText;
     //event listener for input
     newInput.addEventListener('focusout', (e) => inputToDiv(e.target));
@@ -185,7 +186,6 @@ const getRandom = () => {
 testForm.addEventListener('submit', function(e) {
     e.preventDefault();
     testResults(e.target);
-    testAns.value
 })
     
 // test results
