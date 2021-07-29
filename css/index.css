@@ -49,7 +49,27 @@ input {
     width:100%;
 }
 
+input.right {
+    background-color:green;
+    color:white;
+}
 
+input.wrong {
+    background-color:red;
+    color:white;
+}
+
+#ansAck {
+    margin-top:20px;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
 
 img.spin{
     animation-name: spin;

@@ -161,6 +161,90 @@ const inputToDiv = (thisInput) => {
     thisInput.remove();
 }
 
+//********************** populate test **************************************
+const testIcl = document.querySelector("#testIcl");
+const testAns = document.querySelector("#testAns");
+const ansButton = document.querySelector("#ansButton");
+const nextButton = document.querySelector("#nextButton");
+const ansText = document.querySelector("#answer");
+const testForm = document.querySelector("#testForm");
+const idText = document.querySelector("#idField");
+const ansAck = document.querySelector("#ansAck");
+
+const getRandom = () => {
+    axios.get(`${baseURL}/getRandom`)
+    .then(res => {
+        testIcl.innerText = res.data.icelandic;
+        answer.innerText = res.data.english;
+        idText.innerText = res.data.id;
+    }).catch(err => console.log(err))
+};
+
+
+//************************** evaluate test ******************************
+testForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    testResults(e.target);
+    testAns.value
+})
+    
+// test results
+const testResults = (thisForm) => {
+    const givenAnswer = testAns.value;
+    const actualAnswer = ansText.innerText;
+    const wordId = idText.innerText;
+    
+
+    if (givenAnswer === actualAnswer) {
+        ansAck.className="correct";
+        ansAck.innerText = "Correct!";
+        testAns.classList.add("right");
+        // do patch for id item: get id, update score + 1 in backend.
+        axios.patch(`${baseURL}/addScore/${wordId}`)
+        .then(res => {
+            console.log(res.data);
+            spinner();
+            showAll();
+            
+        }).catch(err => console.log(err));
+    } else {
+        ansAck.className="incorrect";
+        ansAck.innerText = `Wrong! The correct answer is "${actualAnswer}".`;
+        testAns.classList.add("wrong");
+        getRandom();
+        
+    }
+    // hide submit button, show next button
+    testAns.classList.add("disabled");
+    ansButton.classList.add("hidden");
+    nextButton.classList.remove("hidden");
+    nextButton.focus();
+    testAns.disabled= true;
+}
+
+nextButton.addEventListener('click', function(e) {
+    getRandom();
+    ///hide next button, show submit button, and load new test word
+    nextButton.classList.add("hidden");
+    ansButton.classList.remove("hidden");
+    testAns.classList.remove("right");
+    testAns.classList.remove("wrong");
+    ansAck.innerText ="";
+    testAns.value = "";
+    testAns.disabled= false;
+    testAns.focus();
+});
+
+
+// make flags spin
+const spinner = () => {
+    document.querySelectorAll("img").forEach(image => {
+        image.classList.remove("spin");
+        void image.offsetWidth;
+        image.classList.add("spin");
+    });
+};
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
