@@ -88,6 +88,14 @@ createForm.addEventListener('submit', function(e) {
     thisForm.icl.focus();
 })
 
+//************************************DELETE BY ID *****************************************/
+const deleteById = (id) => {
+    axios.delete(`${baseURL}/delete/${id}`)
+    .then(res => {
+        showAll();
+    }).catch(err => console.log(err));
+}
+
 // ****************** run immediately ************************
 showAll();
 getRandom();
